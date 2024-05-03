@@ -8,8 +8,7 @@ namespace FileConsoleApp1
 {
     internal class Employees
     {
-        private static int i = 1;
-        public int EmployeeId { get; private set; }
+        public int EmployeeId { get; set; }
         public DateTime DateTimeAdd { get; set; }
         public string Name { get; set; }
         public string FirstName { get; set; }
@@ -19,9 +18,9 @@ namespace FileConsoleApp1
         public DateTime DateBirth { get; set; }
         public string PlaceBirth {  get; set; }
 
+
         public Employees(string firstName, string name, string lastName, int age, double height, DateTime dateBirth, string placeBitth)
         {
-            EmployeeId = i++;
             DateTimeAdd = DateTime.Now;
             Name = name;
             FirstName = firstName;

@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            string path = "C:\\Users\\aleks\\OneDrive\\Рабочий стол\\C#pog\\CSharpSkilBox\\FileConsoleApp1\\FileConsoleApp1\\fileEmployees.txt";
+            string path = @"fileEmployees.txt";
 
             FileWork.CreateFileAndWrite(path);
 

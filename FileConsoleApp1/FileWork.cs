@@ -15,9 +15,9 @@ namespace FileConsoleApp1
             {
                 Console.WriteLine("Файл существует");
             }
-            else 
+            else
             {
-                using(StreamWriter sw = new StreamWriter(path, true))
+                using (StreamWriter sw = new StreamWriter(path, true))
                 {
                     Console.WriteLine("Файл создан");
                 }
@@ -38,29 +38,47 @@ namespace FileConsoleApp1
         }
         public static void WriteFile(string path)
         {
+
+            Console.WriteLine("Введите через пробел Ф.И.О, возраст, рост, дату рождения, место рождения. ");
+            string inputUser = Console.ReadLine();
+
+            string[] splitText = inputUser.Split(" ");
+
+            string firstName = splitText[0];
+            string name = splitText[1];
+            string lastName = splitText[2];
+            int age = int.Parse(splitText[3]);
+            double height = double.Parse(splitText[4]);
+            DateTime dateBirth = DateTime.Parse(splitText[5]);
+            string placeBirth = splitText[6];
+
+            Employees employees = new Employees(firstName, name, lastName, age, height, dateBirth, placeBirth);
+
+            using (StreamReader sw = new StreamReader(path))
+            {
+                string textFile = null;
+                while (!sw.EndOfStream)
+                {
+                    textFile = sw.ReadLine();
+                }
+                string[] textFileLastLine = textFile.Split("#");
+
+                if (int.TryParse(textFileLastLine[0], out int idEmp))
+                {
+                    employees.EmployeeId = idEmp;
+                }
+                else
+                {
+                    Console.WriteLine("Неверное ID.");
+                }
+            }
             using (StreamWriter sr = new StreamWriter(path, true))
             {
-                Console.WriteLine("Введите через пробел Ф.И.О, возраст, рост, дату рождения, место рождения. ");
-                string inputUser = Console.ReadLine();
 
-                string[] splitText = inputUser.Split(" ");
-
-                string firstName = splitText[0];
-                string name = splitText[1];
-                string lastName = splitText[2];
-                int age = int.Parse(splitText[3]);
-                double height = double.Parse(splitText[4]);
-                DateTime dateBirth = DateTime.Parse(splitText[5]);
-                string placeBirth = splitText[6];
-
-
-                Employees employees = new Employees(firstName,name,lastName,age,height,dateBirth,placeBirth);
-
-                sr.WriteLine($"{employees.EmployeeId}#{employees.DateTimeAdd}#{employees.FirstName}#{employees.Name}#{employees.LastName}#{employees.Age}#{employees.Height}#{employees.DateBirth}#{employees.PlaceBirth}#");
+                sr.WriteLine($"{employees.EmployeeId + 1}#{employees.DateTimeAdd}#{employees.FirstName}#{employees.Name}#{employees.LastName}#{employees.Age}#{employees.Height}#{employees.DateBirth}#{employees.PlaceBirth}#");
                 Console.WriteLine("Данные записаны в файл");
             }
+            
         }
-
-
     }
 }
