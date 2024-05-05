@@ -18,6 +18,9 @@ namespace FileConsoleApp1
         public DateTime DateBirth { get; set; }
         public string PlaceBirth {  get; set; }
 
+        public Employees()
+        {
+        }
 
         public Employees(string firstName, string name, string lastName, int age, double height, DateTime dateBirth, string placeBitth)
         {
