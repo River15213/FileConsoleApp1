@@ -39,18 +39,30 @@ namespace FileConsoleApp1
         public static void WriteFile(string path)
         {
 
-            Console.WriteLine("Введите через пробел Ф.И.О, возраст, рост, дату рождения, место рождения. ");
+            Console.WriteLine("Введите через пробел Ф.И.О ");
             string inputUser = Console.ReadLine();
 
             string[] splitText = inputUser.Split(" ");
 
+            if(splitText.Length < 3)
+            {
+                Console.WriteLine("Неправильный ввод ФИО");
+                return;
+            }
             string firstName = splitText[0];
             string name = splitText[1];
             string lastName = splitText[2];
-            int age = int.Parse(splitText[3]);
-            double height = double.Parse(splitText[4]);
-            DateTime dateBirth = DateTime.Parse(splitText[5]);
-            string placeBirth = splitText[6];
+            Console.WriteLine("Введите возраст ");
+            inputUser = Console.ReadLine();
+            int.TryParse(inputUser, out int age);
+
+            Console.WriteLine("Введите рост ");
+            double.TryParse(Console.ReadLine(), out double height);
+            Console.WriteLine("Введите дату рождения ");
+            DateTime.TryParse(Console.ReadLine(), out DateTime dateBirth);
+
+            Console.WriteLine("Введите город проживания ");
+            string placeBirth = Console.ReadLine();
 
             Employees employees = new Employees(firstName, name, lastName, age, height, dateBirth, placeBirth);
 
@@ -60,6 +72,11 @@ namespace FileConsoleApp1
                 while (!sw.EndOfStream)
                 {
                     textFile = sw.ReadLine();
+
+                }
+                if (textFile == null)
+                {
+                    textFile = "0#";
                 }
                 string[] textFileLastLine = textFile.Split("#");
 

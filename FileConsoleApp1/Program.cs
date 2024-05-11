@@ -6,6 +6,7 @@
         {
             string path = @"fileEmployees.txt";
 
+
             FileWork.CreateFileAndWrite(path);
 
             Console.WriteLine("Что хотите сделать? \n" +
@@ -19,24 +20,38 @@
             switch (selectionUser)
             {
                 case 1:
-                    FileWork.ReadFile(path);
-                    Console.WriteLine("___________________________________");
-                    var listAllEmployess = Repository.GetAllWorkers(path);
-                    foreach (var worker in listAllEmployess)
+                    if (Repository.EmptyFile(path) == false)
                     {
-                        Console.WriteLine($"{worker.EmployeeId} Фамилия:{worker.FirstName} Имя:{worker.Name} Отчество:{worker.LastName} Возраст:{worker.Age} Рост:{worker.Height} Дата рождения:{worker.DateBirth} Город проживания:{worker.PlaceBirth}");
+                        FileWork.ReadFile(path);
+                        Console.WriteLine("___________________________________");
+                        var listAllEmployess = Repository.GetAllWorkers(path);
+                        foreach (var worker in listAllEmployess)
+                        {
+                            Console.WriteLine($"{worker.EmployeeId} Фамилия:{worker.FirstName} Имя:{worker.Name} Отчество:{worker.LastName} Возраст:{worker.Age} Рост:{worker.Height} Дата рождения:{worker.DateBirth} Город проживания:{worker.PlaceBirth}");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Файл пустой.");
                     }
                     break;
                 case 2:
                     FileWork.WriteFile(path);
                     break;
                 case 3:
-                    Console.WriteLine("Введите ID сотрудника для вывода: ");
-                    int IdEmpoyessSelect = int.Parse(Console.ReadLine());
-                    var listEmployessById = Repository.GetWorkerById(path, IdEmpoyessSelect);
-                    foreach (var worker in listEmployessById)
+                    if (Repository.EmptyFile(path) == false)
                     {
-                        Console.WriteLine($"{worker.EmployeeId} Фамилия:{worker.FirstName} Имя:{worker.Name} Отчество:{worker.LastName} Возраст:{worker.Age} Рост:{worker.Height} Дата рождения:{worker.DateBirth} Город проживания:{worker.PlaceBirth}");
+                            Console.WriteLine("Введите ID сотрудника для вывода: ");
+                        int IdEmpoyessSelect = int.Parse(Console.ReadLine());
+                        var listEmployessById = Repository.GetWorkerById(path, IdEmpoyessSelect);
+                        foreach (var worker in listEmployessById)
+                        {
+                            Console.WriteLine($"{worker.EmployeeId} Фамилия:{worker.FirstName} Имя:{worker.Name} Отчество:{worker.LastName} Возраст:{worker.Age} Рост:{worker.Height} Дата рождения:{worker.DateBirth} Город проживания:{worker.PlaceBirth}");
+                        }
+                    }
+                    else
+                    {
+                    Console.WriteLine("Файл пустой.");
                     }
                     break;
                 case 4:
